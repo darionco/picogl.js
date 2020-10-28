@@ -31,13 +31,15 @@ export class App {
     /**
      * Enable WebGL capability (e.g. depth testing, blending, etc.).
      * @param cap - Capability to enable.
+     * @returns The App object.
      */
-    enable(cap: GLenum): void;
+    enable(cap: GLenum): App;
     /**
      * Disable WebGL capability (e.g. depth testing, blending, etc.).
      * @param cap - Capability to disable.
+     * @returns The App object.
      */
-    disable(cap: GLenum): void;
+    disable(cap: GLenum): App;
     /**
      * Set the color mask to selectively enable or disable particular
      *         color channels while rendering.
@@ -393,12 +395,92 @@ export class App {
      */
     createUniformBuffer(layout: any[], usage?: GLenum): UniformBuffer;
     /**
-     * Create a 2D texture. Can be used in several ways depending on the type of texture data:
-     *         <ul>
-     *             <li><b>app.createTexture2D(ImageElement, options)</b>: Create texture from a DOM image element.
-     *             <li><b>app.createTexture2D(TypedArray, width, height, options)</b>: Create texture from a typed array.
-     *             <li><b>app.createTexture2D(width, height, options)</b>: Create empty texture.
-     *         </ul>
+     * Create empty 2D texture.
+     * @param [width] - Texture width. Required for array or empty data.
+     * @param [height] - Texture height. Required for array or empty data.
+     * @param [options] - Texture options.
+     * @param [options.internalFormat = RGBA8] - Texture data internal format. Must be a sized format.
+     * @param [options.type] - Type of data stored in the texture. Default based on
+     *             <b>internalFormat</b>.
+     * @param [options.flipY = false] - Whether the y-axis should be flipped when unpacking the texture.
+     * @param [options.premultiplyAlpha = false] - Whether the alpha channel should be pre-multiplied when unpacking the texture.
+     * @param [options.minFilter] - Minification filter. Defaults to
+     *             LINEAR_MIPMAP_NEAREST if image data is provided, NEAREST otherwise.
+     * @param [options.magFilter] - Magnification filter. Defaults to LINEAR
+     *             if image data is provided, NEAREST otherwise.
+     * @param [options.wrapS = REPEAT] - Horizontal wrap mode.
+     * @param [options.wrapT = REPEAT] - Vertical wrap mode.
+     * @param [options.compareMode = NONE] - Comparison mode.
+     * @param [options.compareFunc = LEQUAL] - Comparison function.
+     * @param [options.baseLevel] - Base mipmap level.
+     * @param [options.maxLevel] - Maximum mipmap level.
+     * @param [options.minLOD] - Mimimum level of detail.
+     * @param [options.maxLOD] - Maximum level of detail.
+     * @param [options.maxAnisotropy] - Maximum anisotropy in filtering.
+     * @returns New Texture object.
+     */
+    createTexture2D(width?: number, height?: number, options?: {
+        internalFormat?: GLenum;
+        type?: GLenum;
+        flipY?: boolean;
+        premultiplyAlpha?: boolean;
+        minFilter?: GLenum;
+        magFilter?: GLenum;
+        wrapS?: GLenum;
+        wrapT?: GLenum;
+        compareMode?: GLenum;
+        compareFunc?: GLenum;
+        baseLevel?: GLenum;
+        maxLevel?: GLenum;
+        minLOD?: GLenum;
+        maxLOD?: GLenum;
+        maxAnisotropy?: GLenum;
+    }): Texture;
+    /**
+     * Create a 2D texture from a DOM image element.
+     * @param [image] - Image data. An array can be passed to manually set all levels
+     *             of the mipmap chain. If a single level is passed and mipmap filtering is being used,
+     *             generateMipmap() will be called to produce the remaining levels.
+     * @param [options] - Texture options.
+     * @param [options.internalFormat = RGBA8] - Texture data internal format. Must be a sized format.
+     * @param [options.type] - Type of data stored in the texture. Default based on
+     *             <b>intrnalFormat</b>.
+     * @param [options.flipY = false] - Whether the y-axis should be flipped when unpacking the texture.
+     * @param [options.premultiplyAlpha = false] - Whether the alpha channel should be pre-multiplied when unpacking the texture.
+     * @param [options.minFilter] - Minification filter. Defaults to
+     *             LINEAR_MIPMAP_NEAREST if image data is provided, NEAREST otherwise.
+     * @param [options.magFilter] - Magnification filter. Defaults to LINEAR
+     *             if image data is provided, NEAREST otherwise.
+     * @param [options.wrapS = REPEAT] - Horizontal wrap mode.
+     * @param [options.wrapT = REPEAT] - Vertical wrap mode.
+     * @param [options.compareMode = NONE] - Comparison mode.
+     * @param [options.compareFunc = LEQUAL] - Comparison function.
+     * @param [options.baseLevel] - Base mipmap level.
+     * @param [options.maxLevel] - Maximum mipmap level.
+     * @param [options.minLOD] - Mimimum level of detail.
+     * @param [options.maxLOD] - Maximum level of detail.
+     * @param [options.maxAnisotropy] - Maximum anisotropy in filtering.
+     * @returns New Texture object.
+     */
+    createTexture2D(image?: HTMLImageElement | HTMLImageElement[], options?: {
+        internalFormat?: GLenum;
+        type?: GLenum;
+        flipY?: boolean;
+        premultiplyAlpha?: boolean;
+        minFilter?: GLenum;
+        magFilter?: GLenum;
+        wrapS?: GLenum;
+        wrapT?: GLenum;
+        compareMode?: GLenum;
+        compareFunc?: GLenum;
+        baseLevel?: GLenum;
+        maxLevel?: GLenum;
+        minLOD?: GLenum;
+        maxLOD?: GLenum;
+        maxAnisotropy?: GLenum;
+    }): Texture;
+    /**
+     * Create 2D texture from a typed array.
      * @param [image] - Image data. An array can be passed to manually set all levels
      *             of the mipmap chain. If a single level is passed and mipmap filtering is being used,
      *             generateMipmap() will be called to produce the remaining levels.
@@ -425,7 +507,7 @@ export class App {
      * @param [options.maxAnisotropy] - Maximum anisotropy in filtering.
      * @returns New Texture object.
      */
-    createTexture2D(image?: HTMLElement | ArrayBufferView | any[], width?: number, height?: number, options?: {
+    createTexture2D(image?: ArrayBufferView | ArrayBufferView[], width?: number, height?: number, options?: {
         internalFormat?: GLenum;
         type?: GLenum;
         flipY?: boolean;
