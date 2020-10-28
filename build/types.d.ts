@@ -396,8 +396,8 @@ export class App {
     createUniformBuffer(layout: any[], usage?: GLenum): UniformBuffer;
     /**
      * Create empty 2D texture.
-     * @param [width] - Texture width. Required for array or empty data.
-     * @param [height] - Texture height. Required for array or empty data.
+     * @param width - Texture width. Required for array or empty data.
+     * @param height - Texture height. Required for array or empty data.
      * @param [options] - Texture options.
      * @param [options.internalFormat = RGBA8] - Texture data internal format. Must be a sized format.
      * @param [options.type] - Type of data stored in the texture. Default based on
@@ -419,7 +419,7 @@ export class App {
      * @param [options.maxAnisotropy] - Maximum anisotropy in filtering.
      * @returns New Texture object.
      */
-    createTexture2D(width?: number, height?: number, options?: {
+    createTexture2D(width: number, height: number, options?: {
         internalFormat?: GLenum;
         type?: GLenum;
         flipY?: boolean;
@@ -438,7 +438,7 @@ export class App {
     }): Texture;
     /**
      * Create a 2D texture from a DOM image element.
-     * @param [image] - Image data. An array can be passed to manually set all levels
+     * @param image - Image data. An array can be passed to manually set all levels
      *             of the mipmap chain. If a single level is passed and mipmap filtering is being used,
      *             generateMipmap() will be called to produce the remaining levels.
      * @param [options] - Texture options.
@@ -462,7 +462,7 @@ export class App {
      * @param [options.maxAnisotropy] - Maximum anisotropy in filtering.
      * @returns New Texture object.
      */
-    createTexture2D(image?: HTMLImageElement | HTMLImageElement[], options?: {
+    createTexture2D(image: HTMLImageElement | HTMLImageElement[], options?: {
         internalFormat?: GLenum;
         type?: GLenum;
         flipY?: boolean;
@@ -481,11 +481,11 @@ export class App {
     }): Texture;
     /**
      * Create 2D texture from a typed array.
-     * @param [image] - Image data. An array can be passed to manually set all levels
+     * @param image - Image data. An array can be passed to manually set all levels
      *             of the mipmap chain. If a single level is passed and mipmap filtering is being used,
      *             generateMipmap() will be called to produce the remaining levels.
-     * @param [width] - Texture width. Required for array or empty data.
-     * @param [height] - Texture height. Required for array or empty data.
+     * @param width - Texture width. Required for array or empty data.
+     * @param height - Texture height. Required for array or empty data.
      * @param [options] - Texture options.
      * @param [options.internalFormat = RGBA8] - Texture data internal format. Must be a sized format.
      * @param [options.type] - Type of data stored in the texture. Default based on
@@ -507,7 +507,7 @@ export class App {
      * @param [options.maxAnisotropy] - Maximum anisotropy in filtering.
      * @returns New Texture object.
      */
-    createTexture2D(image?: ArrayBufferView | ArrayBufferView[], width?: number, height?: number, options?: {
+    createTexture2D(image: ArrayBufferView | ArrayBufferView[], width: number, height: number, options?: {
         internalFormat?: GLenum;
         type?: GLenum;
         flipY?: boolean;
